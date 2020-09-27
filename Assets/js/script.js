@@ -1,9 +1,7 @@
-// Function that takes value of search text input, runs ajax query to Weather API
-// Within .then, organizes that data and generates elements on the page
-// Last, generates an li with an event listener to redo this
 $(document).ready(function() {
     function clearAll() {
         $("#overview").empty();
+        $("#forecast").empty();
     }
 
     function citySearch(){
@@ -46,9 +44,57 @@ $(document).ready(function() {
             overview.append(w);
 
             generateForecast(response.coord.lat, response.coord.lon);
+
+            // Creates an li with an event listener to redo the citysearch() with the current text as the city
+            var li = $("<li>");
+            li.text(city);
+            li.on("click", function(){
+                var apikey = "7f0107959f91d24fd331487876d42456";
+                var name = $(this).text();
+                var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+name+"&appid=" + apikey;
+
+                clearAll();
+
+                $.ajax({
+                    url: queryURL,
+                    method: 'GET'
+                }).then(function(response) {
+        
+                    var overview = $("#overview");
+                    // Convert Kelvin to Farenheit
+                    var F = (response.main.temp - 273.15) * 1.80 + 32;
+                    // Generate Weather Overview
+                    var title = $("<h4>");
+        
+                    var today = new Date();
+                    var date = (today.getMonth()+1)+'-'+today.getDate()+'-'+today.getFullYear();
+        
+                    title.text(response.name + " " + "(" + date + ")");
+                    overview.append(title);
+        
+                    // Temperature
+                    var p = $("<p>");
+                    p.text("Temperature: " + F);
+                    overview.append(p);
+        
+                    // Humidity
+                    var h = $("<p>");
+                    h.text("Humidity: " + response.main.humidity + "%");
+                    overview.append(h);
+        
+                    // Wind
+                    var w = $("<p>");
+                    w.text("Wind Speed: " + response.wind.speed + "MPH");
+                    overview.append(w);
+        
+                    generateForecast(response.coord.lat, response.coord.lon);
+                });
+            });
+            $("#prevSearch").prepend(li);
         });
     }
 
+    // Functions to get the next five days from today
     function GetDates(startDate, daysToAdd) {
         var aryDates = [];
     
@@ -60,7 +106,6 @@ $(document).ready(function() {
     
         return aryDates;
     }
-    
     function MonthAsString(monthIndex) {
         var d = new Date();
         var month = new Array();
@@ -79,7 +124,6 @@ $(document).ready(function() {
     
         return month[monthIndex];
     }
-    
     function DayAsString(dayIndex) {
         var weekdays = new Array(7);
         weekdays[0] = "Sunday";
@@ -92,7 +136,6 @@ $(document).ready(function() {
     
         return weekdays[dayIndex];
     }
-
     // Generate Forecast
     function generateForecast(x, y) {
         var apikey = "7f0107959f91d24fd331487876d42456";
@@ -144,12 +187,6 @@ $(document).ready(function() {
     })
        
     }
-    
-
-            
-    
-            // Generate li button
-    
     
     $("#searchBtn").on("click", function(){
         citySearch();

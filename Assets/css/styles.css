@@ -1,3 +1,24 @@
+.jumbotron {
+    background-color: rgb(63, 63, 63);
+    color: white;
+    margin-bottom: 0;
+}
+
+.col-md-4 {
+    background-color: rgb(201, 201, 201);
+    padding-bottom: 100%;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    background-color:  rgb(4, 186, 241);
+    color: white;
+    margin-bottom: 2px;
+}
+
 .card {
     width: 16%;
     float: left;
