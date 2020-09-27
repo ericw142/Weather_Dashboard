@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- My CSS -->
+    <link rel="stylesheet" href="Assets/css/styles.css">
+</head>
+<body>
+    <!-- Jumbotron -->
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">Weather Dashboard</h1>
+          <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+        </div>
+      </div>
+
+    <!-- Body -->
+    <div class="container">
+        <div class="row">
+            <!-- Search for a City -->
+            <div class="col-md-4">
+                <h4>Search for a City</h4>
+                <div class="input-group mb-3">
+                    <input type="text" id="search" class="form-control" aria-label="city search" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button" id="searchBtn">?</button>
+                    </div>
+                  </div>
+
+                  <!-- Generated LIs storing the last city searched and an event listener to redo the search -->
+                  <ul id="prevSearch">
+
+                  </ul>
+            </div>
+            <!-- Info Display -->
+            <div class="col-md-8">
+                <div class="row">
+                    <!-- Weather Overview -->
+                    <div class="col-md-12" id="overview">
+                        <!-- Generated h4 with city name, date, icon -->
+                        <h4 id="overviewTitle"></h4>
+                        <!-- Generated p's with temp, humidity, wind speed, uv index-->
+                        <!-- UV Index has background color based on number -->
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Five Day Forecast -->
+                    <div class="col-md-12">
+                        <h4>Five Day Forecast</h4>
+                        <!-- Generated cards with date, icon, temp and humidity -->
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+<!-- Bootstrap Related JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+<!-- My JS -->
+<script src="Assets/js/script.js"></script>
+</body>
+</html>
