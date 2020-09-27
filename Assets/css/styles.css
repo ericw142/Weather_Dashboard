@@ -1,0 +1,7 @@
+.card {
+    width: 16%;
+    float: left;
+    margin: 1px;
+    background-color: rgb(4, 186, 241);
+    color: white;
+}
