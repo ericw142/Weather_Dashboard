@@ -9,6 +9,7 @@
     padding-bottom: 100%;
 }
 
+/* Styles for generated 'buttons' that appear on user input */
 ul {
     list-style-type: none;
 }
@@ -16,7 +17,29 @@ ul {
 li {
     background-color:  rgb(4, 186, 241);
     color: white;
-    margin-bottom: 2px;
+    display: inline-block;
+    text-align: center;
+    width: 99%;
+    border-radius: 10px;
+    border: 4px double #cccccc;
+    cursor: pointer;
+}
+
+li:hover {
+    background-color: white;
+    color: rgb(4, 186, 241);
+}
+
+/* Styles for overview section and forecast section */
+.row {
+    max-width: 100%;
+}
+
+#overview {
+    padding: 5px;
+    margin: 15px;
+    border-radius: 8px;
+    border: 2px solid rgb(202, 202, 202);
 }
 
 .card {
@@ -25,4 +48,5 @@ li {
     margin: 1px;
     background-color: rgb(4, 186, 241);
     color: white;
+    height: 80%;
 }

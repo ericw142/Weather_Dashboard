@@ -15,13 +15,14 @@ $(document).ready(function() {
             url: queryURL,
             method: 'GET'
         }).then(function(response) {
-
+            console.log(response);
             var overview = $("#overview");
             // Convert Kelvin to Farenheit
             var F = (response.main.temp - 273.15) * 1.80 + 32;
+            F = F.toFixed(2);
             // Generate Weather Overview
             var title = $("<h4>");
-
+            // Date
             var today = new Date();
             var date = (today.getMonth()+1)+'-'+today.getDate()+'-'+today.getFullYear();
 
@@ -30,7 +31,7 @@ $(document).ready(function() {
 
             // Temperature
             var p = $("<p>");
-            p.text("Temperature: " + F);
+            p.text("Temperature: " + F + "° F");
             overview.append(p);
 
             // Humidity
@@ -63,6 +64,7 @@ $(document).ready(function() {
                     var overview = $("#overview");
                     // Convert Kelvin to Farenheit
                     var F = (response.main.temp - 273.15) * 1.80 + 32;
+                    F = F.toFixed(2);
                     // Generate Weather Overview
                     var title = $("<h4>");
         
@@ -74,7 +76,7 @@ $(document).ready(function() {
         
                     // Temperature
                     var p = $("<p>");
-                    p.text("Temperature: " + F);
+                    p.text("Temperature: " + F + "° F");
                     overview.append(p);
         
                     // Humidity
@@ -145,7 +147,6 @@ $(document).ready(function() {
             url: forecastURL,
             method: 'GET'
         }).then(function(response) {
-            console.log(response);
 
             var cards = $("<div>");
 
@@ -169,6 +170,7 @@ $(document).ready(function() {
 
                 // Temperature
                 var F = (response.daily[i].temp.day - 273.15) * 1.80 + 32;
+                F = F.toFixed(2);
                 var temp = $("<p>");
                 temp.addClass("card-text");
                 temp.text("Temperature: " + F);
