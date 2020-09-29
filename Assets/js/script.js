@@ -3,7 +3,7 @@ $(document).ready(function() {
         $("#overview").empty();
         $("#forecast").empty();
     }
-
+    // Runs on search, executes both citySearch and generateForecast
     function citySearch(){
         var apikey = "7f0107959f91d24fd331487876d42456";
         var city = $("#search").val();
@@ -15,8 +15,7 @@ $(document).ready(function() {
             url: queryURL,
             method: 'GET'
         }).then(function(response) {
-            console.log(response);
-            var overview = $("#overview");
+            
             // Convert Kelvin to Farenheit
             var F = (response.main.temp - 273.15) * 1.80 + 32;
             F = F.toFixed(2);
@@ -138,7 +137,7 @@ $(document).ready(function() {
     
         return weekdays[dayIndex];
     }
-    // Generate Forecast
+    // Generates Five-Day Forecast
     function generateForecast(x, y) {
         var apikey = "7f0107959f91d24fd331487876d42456";
         var forecastURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + x + "&lon=" + y + "&exclude={part}&appid=" + apikey;
@@ -147,8 +146,31 @@ $(document).ready(function() {
             url: forecastURL,
             method: 'GET'
         }).then(function(response) {
-
+            
             var cards = $("<div>");
+
+            // UV Index (only available in this ajax call)
+            var uvi = response.current.uvi;
+            var v = $("<p>");
+            v.text("UV Index: " + uvi);
+            if (uvi < 3) {
+                v.css("background-color", "green");
+                v.css("width", "20%");
+                v.css("color", "white");
+            } else if (uvi < 6) {
+                v.css("background-color", "yellow");
+                v.css("width", "20%");
+            } else if (uvi < 8) {
+                v.css("background-color", "orange");
+                v.css("width", "20%");
+            } else if (uvi < 11) {
+                v.css("background-color", "red");
+                v.css("width", "20%");
+            } else {
+                v.css("background-color", "purple");
+                v.css("width", "20%");
+            }
+            $("#overview").append(v);
 
             for (var i = 0; i < 5; i++) {
                 var newCard = $("<div>");
@@ -190,6 +212,7 @@ $(document).ready(function() {
        
     }
     
+    // Event Listeners
     $("#searchBtn").on("click", function(){
         citySearch();
     });
@@ -199,5 +222,4 @@ $(document).ready(function() {
             citySearch();
         }
     });
-
 })
