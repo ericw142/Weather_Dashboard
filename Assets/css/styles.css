@@ -1,10 +1,18 @@
+/* Non-mobile CSS Rules */
+@media screen and (min-width: 800px) {
+    body {
+        overflow: hidden;
+    }
+}
+
+
 .jumbotron {
     background-color: rgb(63, 63, 63);
     color: white;
     margin-bottom: 0;
 }
 
-.col-md-4 {
+.col-md-3 {
     background-color: rgb(201, 201, 201);
     padding-bottom: 100%;
 }
@@ -46,7 +54,7 @@ li:hover {
 }
 
 .card {
-    width: 16%;
+    width: 17.5%;
     float: left;
     margin: 1px;
     margin-right: 2%;

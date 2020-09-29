@@ -1,4 +1,55 @@
 $(document).ready(function() {
+    // Creating a button for the last city searched on page load
+    if (localStorage.getItem("lastSearch")) {
+        var last = $("<li>");
+        last.text(localStorage.getItem("lastSearch"));
+        last.on("click", function(){
+            var apikey = "7f0107959f91d24fd331487876d42456";
+            var name = $(this).text();
+            var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+name+"&appid=" + apikey;
+
+            clearAll();
+
+            $.ajax({
+                url: queryURL,
+                method: 'GET'
+            }).then(function(response) {
+    
+                var overview = $("#overview");
+                // Convert Kelvin to Farenheit
+                var F = (response.main.temp - 273.15) * 1.80 + 32;
+                F = F.toFixed(2);
+                // Generate Weather Overview
+                var title = $("<h4>");
+    
+                var today = new Date();
+                var date = (today.getMonth()+1)+'-'+today.getDate()+'-'+today.getFullYear();
+    
+                title.text(response.name + " " + "(" + date + ")");
+                overview.append(title);
+    
+                // Temperature
+                var p = $("<p>");
+                p.text("Temperature: " + F + "° F");
+                overview.append(p);
+    
+                // Humidity
+                var h = $("<p>");
+                h.text("Humidity: " + response.main.humidity + "%");
+                overview.append(h);
+    
+                // Wind
+                var w = $("<p>");
+                w.text("Wind Speed: " + response.wind.speed + "MPH");
+                overview.append(w);
+    
+                generateForecast(response.coord.lat, response.coord.lon);
+            });
+        });
+        $("#prevSearch").prepend(last);
+    }
+    
+
     function clearAll() {
         $("#overview").empty();
         $("#forecast").empty();
@@ -15,7 +66,8 @@ $(document).ready(function() {
             url: queryURL,
             method: 'GET'
         }).then(function(response) {
-            
+            var overview = $("#overview");
+
             // Convert Kelvin to Farenheit
             var F = (response.main.temp - 273.15) * 1.80 + 32;
             F = F.toFixed(2);
@@ -48,6 +100,7 @@ $(document).ready(function() {
             // Creates an li with an event listener to redo the citysearch() with the current text as the city
             var li = $("<li>");
             li.text(city);
+            localStorage.setItem("lastSearch", city);
             li.on("click", function(){
                 var apikey = "7f0107959f91d24fd331487876d42456";
                 var name = $(this).text();
@@ -155,20 +208,22 @@ $(document).ready(function() {
             v.text("UV Index: " + uvi);
             if (uvi < 3) {
                 v.css("background-color", "green");
-                v.css("width", "20%");
+                v.css("width", "10%");
                 v.css("color", "white");
             } else if (uvi < 6) {
                 v.css("background-color", "yellow");
-                v.css("width", "20%");
+                v.css("width", "10%");
             } else if (uvi < 8) {
                 v.css("background-color", "orange");
-                v.css("width", "20%");
+                v.css("width", "10%");
             } else if (uvi < 11) {
                 v.css("background-color", "red");
-                v.css("width", "20%");
+                v.css("width", "10%");
+                v.css("color", "white");
             } else {
                 v.css("background-color", "purple");
-                v.css("width", "20%");
+                v.css("width", "10%");
+                v.css("color", "white");
             }
             $("#overview").append(v);
 
